@@ -347,7 +347,7 @@ export default {
 
       <section class="row py-5" data-aos="fade-up" data-aos-anchor-placement="center-bottom">
         <div class="col-md-5">
-          <img class="w-100" src="./Img/桌椅.png" alt="">
+          <img class="w-100" src="@/assets/Img/桌椅.png" alt="">
         </div>
         <div class="col-md-7 d-flex flex-wrap flex-column justify-content-center mb-3 mb-md-0">
           <div class="">家具商城</div>
