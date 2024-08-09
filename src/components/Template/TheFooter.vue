@@ -12,7 +12,7 @@ import { RouterLink } from 'vue-router';
                     </svg>
                 </a>
                 <a class="navbar-brand" href="#">
-                    <img src="./Img/lovepik-shop-png-image_400233775_wh1200.png" alt="Bootstrap" width="80" height="50">
+                    <img src="@/assets/Img/lovepik-shop-png-image_400233775_wh1200.png" alt="Bootstrap" width="80" height="50">
                 </a>
                 <p class="text-body-secondary">我們致力於提供高品質的家具選擇，滿足您的居家裝飾需求。馬上探索我們的產品，發現您理想的家居風格！</p>
             </div>

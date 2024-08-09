@@ -4,50 +4,58 @@ import { RouterLink } from 'vue-router';
 export default {
     data() {
         return {
-            furniture1: 0,
-            furniture2: 0,
-            furniture3: 0,
-            furniture1Price: 0,
-            furniture2Price: 0,
-            furniture3Price: 0,
+            data: {
+                furniture1: 0,
+                furniture2: 0,
+                furniture3: 0,
+                furniture1Price: 0,
+                furniture2Price: 0,
+                furniture3Price: 0,
+            }
+
         };
     },
 
     methods: {
         plus1() {
-            this.furniture1++;
+            this.data.furniture1++;
             this.countPrice();
         },
         minus1() {
-            if (this.furniture1 > 0) {
-                this.furniture1--;
+            if (this.data.furniture1 > 0) {
+                this.data.furniture1--;
             }
             this.countPrice();
         },
         plus2() {
-            this.furniture2++;
+            this.data.furniture2++;
             this.countPrice();
         },
         minus2() {
-            if (this.furniture2 > 0) {
-                this.furniture2--;
+            if (this.data.furniture2 > 0) {
+                this.data.furniture2--;
             }
             this.countPrice();
         },
         plus3() {
-            this.furniture3++;
+            this.data.furniture3++;
             this.countPrice();
         },
         minus3() {
-            if (this.furniture3 > 0) {
-                this.furniture3--;
+            if (this.data.furniture3 > 0) {
+                this.data.furniture3--;
             }
             this.countPrice();
         },
         countPrice() {
-            this.furniture1Price = (10.5 * this.furniture1).toFixed(2);
-            this.furniture2Price = (30.5 * this.furniture2).toFixed(2);
-            this.furniture3Price = (15.5 * this.furniture3).toFixed(2);
+            this.data.furniture1Price = (10.5 * this.data.furniture1).toFixed(2);
+            this.data.furniture2Price = (30.5 * this.data.furniture2).toFixed(2);
+            this.data.furniture3Price = (15.5 * this.data.furniture3).toFixed(2);
+        },
+
+        Next() {
+            this.$router.push('/step-2');
+            sessionStorage.setItem('object', JSON.stringify(this.data));
         }
     }
 };
@@ -131,9 +139,9 @@ export default {
                         </div>
                         <div class="d-flex">
                             <button class="px-2" id="my-click-1" @click="plus1">+</button>
-                            <div class="my-count px-2" id="my-count-1">{{ furniture1 }}</div>
+                            <div class="my-count px-2" id="my-count-1">{{ data.furniture1 }}</div>
                             <button class="px-2" id="my-click-2" @click="minus1">-</button>
-                            <div class="px-5" id="result1">${{ furniture1Price }}</div>
+                            <div class="px-5" id="result1">${{ data.furniture1Price }}</div>
                         </div>
                     </div>
                     <hr class="my-0">
@@ -147,9 +155,9 @@ export default {
                         </div>
                         <div class="d-flex">
                             <button class="px-2" id="my-click-3" @click="plus2">+</button>
-                            <div class="my-count px-2" id="my-count-2">{{ furniture2 }}</div>
+                            <div class="my-count px-2" id="my-count-2">{{ data.furniture2 }}</div>
                             <button class="px-2" id="my-click-4" @click="minus2">-</button>
-                            <div class="px-5" id="result2">${{ furniture2Price }}</div>
+                            <div class="px-5" id="result2">${{ data.furniture2Price }}</div>
                         </div>
 
                     </div>
@@ -166,9 +174,9 @@ export default {
 
                         <div class="d-flex">
                             <button class="px-2" id="my-click-5" @click="plus3">+</button>
-                            <div class="my-count px-2" id="my-count-3">{{ furniture3 }}</div>
+                            <div class="my-count px-2" id="my-count-3">{{ data.furniture3 }}</div>
                             <button class="px-2" id="my-click-6" @click="minus3">-</button>
-                            <div class="px-5" id="result3">${{ furniture3Price }}</div>
+                            <div class="px-5" id="result3">${{ data.furniture3Price }}</div>
                         </div>
 
                     </div>
@@ -177,17 +185,20 @@ export default {
                     <div class="d-flex px-4">
                         <ul class="my-margin justify-content-end my-result">
                             <li class="list-group-item d-flex">數量:
-                                <div class="my-move" id="number">{{ furniture1 + furniture2 + furniture3 }}</div>
+                                <div class="my-move" id="number">{{ Number(data.furniture1) + Number(data.furniture2) +
+                                    Number(data.furniture3) }}</div>
                             </li>
                             <li class="list-group-item d-flex">小計:
                                 <div class="my-move" id="small-count">${{
-                                    furniture1Price +furniture2Price+furniture3Price }}</div>
+                                    (Number(data.furniture1Price) + Number(data.furniture2Price) +
+                                        Number(data.furniture3Price)).toFixed(2) }}</div>
                             </li>
                             <li class="list-group-item d-flex">運費:
                                 <div class="my-move">$20.90</div>
                             </li>
                             <li class="list-group-item d-flex">總計:
-                                <div class="my-move" id="total">${{ }}</div>
+                                <div class="my-move" id="total">${{ (Number(data.furniture1Price) + Number(data.furniture2Price) +
+                                    Number(data.furniture3Price) + 20.90).toFixed(2) }}</div>
                             </li>
                         </ul>
 
@@ -196,7 +207,7 @@ export default {
 
                     <div class="d-flex justify-content-between px-5">
                         <button class="my-back" @click="$router.push('/')">←返回購物</button>
-                        <button class="my-button" id="btn" @click="$router.push('/step-2')">下一步</button>
+                        <button class="my-button" id="btn" @click="Next">下一步</button>
                     </div>
 
                 </section>

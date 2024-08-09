@@ -4,17 +4,27 @@ import { RouterLink } from 'vue-router';
 export default {
   data() {
     return {
-      
+      data: {},
     };
   },
+
+  mounted() {
+    this.data = this.getStorage();
+  },
   methods: {
-    
+    getStorage() {
+      const jsonStorage = sessionStorage.getItem('object');
+      if (!JSON.parse(jsonStorage)) {
+        return [];
+      }
+      return JSON.parse(jsonStorage);
+    }
   },
 };
 </script>
 
 <template>
-    <main>
+  <main>
     <div class="my-container">
       <div class="px-3 py-3 my-container-normal">
         <h2>購物車</h2>
@@ -87,7 +97,8 @@ export default {
             </div>
             <hr class="my-1">
             <div class="form-check">
-              <input class="form-check-input  my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <input class="form-check-input  my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                checked>
               <label class="py-3 form-check-label" for="flexRadioDefault2">
                 網路ATM
               </label>
@@ -112,7 +123,8 @@ export default {
             </div>
             <hr class="my-1">
             <div class="form-check">
-              <input class="form-check-input  my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <input class="form-check-input  my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                checked>
               <label class="py-3 form-check-label" for="flexRadioDefault2">
                 超商店到店
               </label>
@@ -123,10 +135,13 @@ export default {
           <div class="d-flex">
             <ul class="my-margin justify-content-end my-result">
               <li class="list-group-item d-flex">數量:
-                <div class="my-move">3</div>
+                <div class="my-move">{{ Number(data.furniture1) + Number(data.furniture2) +
+                  Number(data.furniture3) }}</div>
               </li>
               <li class="list-group-item d-flex">小計:
-                <div class="my-move">$56.50</div>
+                <div class="my-move">${{
+                  (Number(data.furniture1Price) + Number(data.furniture2Price) +
+                    Number(data.furniture3Price)).toFixed(2) }}</div>
               </li>
               <li class="list-group-item d-flex">運費:
                 <div class="my-move">$20.90</div>
@@ -159,155 +174,155 @@ export default {
 
 <style scoped>
 .my-px {
-    padding: 0px 150px;
+  padding: 0px 150px;
 }
 
 .my-container {
-    width: 100%;
-    height: 1000px;
-    position: relative;
-    background-color: #d1d4db;
-    /* margin: auto; */
+  width: 100%;
+  height: 1000px;
+  position: relative;
+  background-color: #d1d4db;
+  /* margin: auto; */
 }
 
 @media (max-width:820px) {
-    .my-container {
+  .my-container {
 
-        height: 1200px;
+    height: 1200px;
 
-    }
+  }
 }
 
 .my-container-normal {
-    width: 80%;
-    height: 90%;
-    background-color: #f3f4f6;
-    position: absolute;
-    left: 10%;
-    top: 5%;
+  width: 80%;
+  height: 90%;
+  background-color: #f3f4f6;
+  position: absolute;
+  left: 10%;
+  top: 5%;
 
 }
 
 .my-circle {
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .my-circle-1 {
 
-    color: white;
+  color: white;
 
 }
 
 .my-circle-2 {
 
-    color: black;
+  color: black;
 
 }
 
 #my-margin {
-    left: -160px;
+  left: -160px;
 }
 
 .my-progress {
-    position: absolute;
-    left: 60px;
-    top: 25%;
-    width: 80%;
+  position: absolute;
+  left: 60px;
+  top: 25%;
+  width: 80%;
 }
 
 .my-color {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .my-big-circle {
-    width: 50px;
-    height: 50px;
-    margin-right: 5%;
+  width: 50px;
+  height: 50px;
+  margin-right: 5%;
 }
 
 .my-paragraph {
-    width: 100%;
-    height: 500px;
+  width: 100%;
+  height: 500px;
 }
 
 .my-result {
-    margin-left: -5px;
+  margin-left: -5px;
 }
 
 
 
 .circle-1 {
-    background-image: url(@/assets/Img/images.jpg);
-    background-size: cover;
+  background-image: url(@/assets/Img/images.jpg);
+  background-size: cover;
 }
 
 .circle-2 {
-    background-image: url(@/assets/Img/istockphoto-506472311-612x612.jpg);
-    background-size: cover;
+  background-image: url(@/assets/Img/istockphoto-506472311-612x612.jpg);
+  background-size: cover;
 }
 
 .circle-3 {
-    background-image: url(@/assets/Img/shutterstock_1269582256.jpg);
-    background-size: cover;
+  background-image: url(@/assets/Img/shutterstock_1269582256.jpg);
+  background-size: cover;
 }
 
 .my-count {
-    width: 40px;
-    height: 30px;
-    border: 1px solid #e5e6e9;
-    border-radius: 5px;
-    text-align: center;
+  width: 40px;
+  height: 30px;
+  border: 1px solid #e5e6e9;
+  border-radius: 5px;
+  text-align: center;
 }
 
 .my-margin {
-    margin-left: auto;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    width: 20%;
+  margin-left: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width: 20%;
 }
 
 @media (max-width:1000px) {
-    .my-margin {
-        margin-left: 70%;
-    }
+  .my-margin {
+    margin-left: 70%;
+  }
 }
 
 .my-back {
-    font-size: 18px;
-    width: 150px;
-    height: 50px;
-    background-color: transparent;
-    border-radius: 8px;
-    border: 1px solid rgb(0, 122, 255);
+  font-size: 18px;
+  width: 150px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid rgb(0, 122, 255);
 }
 
 .my-button {
-    background-color: rgb(0, 122, 255);
-    border: 0;
-    color: white;
-    width: 150px;
-    height: 50px;
-    font-size: 18px;
-    border-radius: 8px;
+  background-color: rgb(0, 122, 255);
+  border: 0;
+  color: white;
+  width: 150px;
+  height: 50px;
+  font-size: 18px;
+  border-radius: 8px;
 }
 
 .my-radio {
-    margin-top: 2%;
+  margin-top: 2%;
 }
 
 @media (max-width:500px) {
-    .my-container-normal{
-        left: 2%;
-        top: 2%;
-        width: 96%;
-        height: 95%;
-    }
+  .my-container-normal {
+    left: 2%;
+    top: 2%;
+    width: 96%;
+    height: 95%;
+  }
 }
 </style>
