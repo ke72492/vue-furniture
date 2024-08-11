@@ -5,6 +5,10 @@ export default {
   data() {
     return {
       data: {},
+      deliverWay:{
+        useWay:'',
+        deliverChoose:'',
+      },
     };
   },
 
@@ -18,6 +22,10 @@ export default {
         return [];
       }
       return JSON.parse(jsonStorage);
+    },
+    Next(){
+      this.$router.push('/step-3');
+      sessionStorage.setItem('deliver', JSON.stringify(this.deliverWay));
     }
   },
 };
@@ -90,22 +98,22 @@ export default {
           </h2>
           <div class="px-4">
             <div class="form-check">
-              <input class="form-check-input my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+              <input v-model="deliverWay.useWay" class="form-check-input my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="信用卡付款">
               <label class="py-3 form-check-label" for="flexRadioDefault1">
                 信用卡付款
               </label>
             </div>
             <hr class="my-1">
             <div class="form-check">
-              <input class="form-check-input  my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                checked>
-              <label class="py-3 form-check-label" for="flexRadioDefault2">
+              <input v-model="deliverWay.useWay" class="form-check-input  my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+              value="網路ATM">
+              <label class="py-3 form-check-label" for="flexRadioDefault1">
                 網路ATM
               </label>
             </div>
             <hr class="my-1">
             <div class="form-check">
-              <input class="form-check-input  my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+              <input v-model="deliverWay.useWay" class="form-check-input  my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="超商代碼">
               <label class="py-3 form-check-label" for="flexRadioDefault1">
                 超商代碼
               </label>
@@ -116,15 +124,15 @@ export default {
           </h2>
           <div class="px-4">
             <div class="form-check">
-              <input class="form-check-input  my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="py-3 form-check-label" for="flexRadioDefault1">
+              <input v-model="deliverWay.deliverChoose" class="form-check-input  my-radio" type="radio" name="flexRadioDefault2" id="flexRadioDefault1" value="黑貓宅配">
+              <label class="py-3 form-check-label" for="flexRadioDefault2">
                 黑貓宅配
               </label>
             </div>
             <hr class="my-1">
             <div class="form-check">
-              <input class="form-check-input  my-radio" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                checked>
+              <input v-model="deliverWay.deliverChoose" class="form-check-input  my-radio" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" 
+              value="超商店到店">
               <label class="py-3 form-check-label" for="flexRadioDefault2">
                 超商店到店
               </label>
@@ -147,7 +155,8 @@ export default {
                 <div class="my-move">$20.90</div>
               </li>
               <li class="list-group-item d-flex">總計:
-                <div class="my-move">$77.40</div>
+                <div class="my-move">${{ (Number(data.furniture1Price) + Number(data.furniture2Price) +
+                  Number(data.furniture3Price) + 20.90).toFixed(2) }}</div>
               </li>
             </ul>
 
@@ -156,7 +165,7 @@ export default {
 
           <div class="d-flex justify-content-between px-5">
             <button class="my-back" id="back-btn" @click="$router.push('/step-1')">上一步</button>
-            <button class="my-button" id="next-btn" @click="$router.push('/step-3')">下一步</button>
+            <button class="my-button" id="next-btn" @click="Next">下一步</button>
           </div>
 
         </section>

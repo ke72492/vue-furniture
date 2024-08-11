@@ -4,11 +4,33 @@ import { RouterLink } from 'vue-router';
 export default {
   data() {
     return {
-      
+      data: {},
+      deliverData:{
+        name:'',
+        phone:'',
+        email:'',
+        addressCity:'',
+        addressNumber:'',
+        addressLocation:'',
+      },
     };
   },
+
+  mounted() {
+    this.data = this.getStorage();
+  },
   methods: {
-    
+    getStorage() {
+      const jsonStorage = sessionStorage.getItem('object');
+      if (!JSON.parse(jsonStorage)) {
+        return [];
+      }
+      return JSON.parse(jsonStorage);
+    },
+    Next(){
+      this.$router.push('/step-4');
+      sessionStorage.setItem('deliverData', JSON.stringify(this.deliverData));
+    }
   },
 };
 </script>
@@ -81,31 +103,31 @@ export default {
           <h5>姓名
           </h5>
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="王小明" aria-label="Username"
+            <input v-model="deliverData.name" type="text" class="form-control" placeholder="王小明" aria-label="Username"
               aria-describedby="basic-addon1">
           </div>
           <h5>電話
           </h5>
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="0912345678" aria-label="Username"
+            <input v-model="deliverData.phone" type="number" class="form-control" placeholder="0912345678" aria-label="Username"
               aria-describedby="basic-addon1">
           </div>
           <h5>Email
           </h5>
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="abc123@gmail.com" aria-label="Username"
+            <input v-model="deliverData.email" type="email" class="form-control" placeholder="abc123@gmail.com" aria-label="Username"
               aria-describedby="basic-addon1">
           </div>
           <h5>地址
           </h5>
           <div class="input-group mb-3">
-            <input type="text" class="form-control my-input" placeholder="城市" aria-label="Username"
+            <input v-model="deliverData.addressCity" type="text" class="form-control my-input" placeholder="城市" aria-label="Username"
               aria-describedby="basic-addon1">
-            <input type="text" class="form-control" placeholder="郵遞區號" aria-label="Username"
+            <input v-model="deliverData.addressNumber" type="text" class="form-control" placeholder="郵遞區號" aria-label="Username"
               aria-describedby="basic-addon1">
           </div>
           <div>
-            <input type="text" class="form-control" placeholder="地址" aria-label="Username"
+            <input v-model="deliverData.addressLocation" type="text" class="form-control" placeholder="地址" aria-label="Username"
               aria-describedby="basic-addon1">
           </div>
           <div class="my-5"></div>
@@ -114,16 +136,20 @@ export default {
           <div class="d-flex">
             <ul class="my-margin justify-content-end my-result">
               <li class="list-group-item d-flex">數量:
-                <div class="my-move">3</div>
+                <div class="my-move">{{ Number(data.furniture1) + Number(data.furniture2) +
+                  Number(data.furniture3) }}</div>
               </li>
               <li class="list-group-item d-flex">小計:
-                <div class="my-move">$56.50</div>
+                <div class="my-move">${{
+                  (Number(data.furniture1Price) + Number(data.furniture2Price) +
+                    Number(data.furniture3Price)).toFixed(2) }}</div>
               </li>
               <li class="list-group-item d-flex">運費:
                 <div class="my-move">$20.90</div>
               </li>
               <li class="list-group-item d-flex">總計:
-                <div class="my-move">$77.40</div>
+                <div class="my-move">${{ (Number(data.furniture1Price) + Number(data.furniture2Price) +
+                  Number(data.furniture3Price) + 20.90).toFixed(2) }}</div>
               </li>
             </ul>
 
@@ -132,7 +158,7 @@ export default {
 
           <div class="d-flex justify-content-between px-5">
             <button class="my-back" id="back-btn" @click="$router.push('/step-2')">上一步</button>
-            <button class="my-button" id="next-btn" @click="$router.push('/step-4')">前往付款</button>
+            <button class="my-button" id="next-btn" @click="Next">前往付款</button>
           </div>
 
         </section>

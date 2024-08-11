@@ -1,7 +1,13 @@
 <script>
+import { mapStores } from 'pinia';
 import { RouterLink } from 'vue-router';
+import { useShoppingCartStore } from '@/stores/Shopping-Cart';
 
 export default {
+    setup() {
+        const shoppingCartStore = useShoppingCartStore();
+        return { shoppingCartStore };
+    },
     data() {
         return {
             data: {
@@ -11,9 +17,15 @@ export default {
                 furniture1Price: 0,
                 furniture2Price: 0,
                 furniture3Price: 0,
-            }
-
+            },
         };
+    },
+
+    // computed:{
+    //     ...mapStores(useShoppingCartStore),
+    // },
+    mounted: {
+
     },
 
     methods: {
@@ -197,7 +209,8 @@ export default {
                                 <div class="my-move">$20.90</div>
                             </li>
                             <li class="list-group-item d-flex">總計:
-                                <div class="my-move" id="total">${{ (Number(data.furniture1Price) + Number(data.furniture2Price) +
+                                <div class="my-move" id="total">${{ (Number(data.furniture1Price) +
+                                    Number(data.furniture2Price) +
                                     Number(data.furniture3Price) + 20.90).toFixed(2) }}</div>
                             </li>
                         </ul>

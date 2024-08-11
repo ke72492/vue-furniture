@@ -7,8 +7,17 @@ export default {
       
     };
   },
+  mounted(){
+    this.getStorage();
+  },
   methods: {
-    
+    getStorage(){
+      const jsonStorage = sessionStorage.getItem('object');
+      if (!JSON.parse(jsonStorage)) {
+        return [];
+      }
+      return JSON.parse(jsonStorage);
+    }
   },
 };
 </script>
