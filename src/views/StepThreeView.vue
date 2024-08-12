@@ -27,7 +27,11 @@ export default {
       }
       return JSON.parse(jsonStorage);
     },
-    Next(){
+    nextStep(){
+      if(!this.deliverData.name || !this.deliverData.phone || !this.deliverData.email || !this.deliverData.addressCity || !this.deliverData.addressNumber || !this.deliverData.addressLocation){
+        alert('請全部填寫');
+        return;
+      }
       this.$router.push('/step-4');
       sessionStorage.setItem('deliverData', JSON.stringify(this.deliverData));
     }
@@ -158,7 +162,7 @@ export default {
 
           <div class="d-flex justify-content-between px-5">
             <button class="my-back" id="back-btn" @click="$router.push('/step-2')">上一步</button>
-            <button class="my-button" id="next-btn" @click="Next">前往付款</button>
+            <button class="my-button" id="next-btn" @click="nextStep">前往付款</button>
           </div>
 
         </section>

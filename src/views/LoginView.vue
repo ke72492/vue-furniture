@@ -8,7 +8,9 @@ export default {
     };
   },
   methods: {
-    
+    // nextStep(){
+    //   this.$router.push('/step-1');
+    // }
   },
 };
 </script>
@@ -49,7 +51,7 @@ export default {
           </div>
           <div>或使用電子郵件傳送您的帳戶</div>
 
-          <form action="./BS5-hw.html" class="w-100">
+          <form action="http://localhost:5173/vue-furniture/step-1" class="w-100">
 
             <div class="input-group mb-3 my-input-email">
 

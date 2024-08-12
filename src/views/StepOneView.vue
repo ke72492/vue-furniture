@@ -1,13 +1,11 @@
 <script>
-import { mapStores } from 'pinia';
-import { RouterLink } from 'vue-router';
-import { useShoppingCartStore } from '@/stores/Shopping-Cart';
+// import { useShoppingCartStore } from '@/stores/Shopping-Cart';
 
 export default {
-    setup() {
-        const shoppingCartStore = useShoppingCartStore();
-        return { shoppingCartStore };
-    },
+    // setup() {
+    //     const shoppingCartStore = useShoppingCartStore();
+    //     return { shoppingCartStore };
+    // },
     data() {
         return {
             data: {
@@ -20,14 +18,6 @@ export default {
             },
         };
     },
-
-    // computed:{
-    //     ...mapStores(useShoppingCartStore),
-    // },
-    mounted: {
-
-    },
-
     methods: {
         plus1() {
             this.data.furniture1++;
@@ -65,7 +55,11 @@ export default {
             this.data.furniture3Price = (15.5 * this.data.furniture3).toFixed(2);
         },
 
-        Next() {
+        nextStep() {
+            if (this.data.furniture1 + this.data.furniture2 + this.data.furniture3 === 0) {
+                alert('請選擇商品');
+                return;
+            }
             this.$router.push('/step-2');
             sessionStorage.setItem('object', JSON.stringify(this.data));
         }
@@ -220,23 +214,16 @@ export default {
 
                     <div class="d-flex justify-content-between px-5">
                         <button class="my-back" @click="$router.push('/')">←返回購物</button>
-                        <button class="my-button" id="btn" @click="Next">下一步</button>
+                        <button class="my-button" id="btn" @click="nextStep">下一步</button>
                     </div>
 
                 </section>
             </div>
-
-
-
-
         </div>
-        <!-- </div> -->
-
-
     </main>
 </template>
 
-<style>
+<style scoped>
 * {
     box-sizing: border-box;
 }

@@ -12,10 +12,6 @@ const router = createRouter({
   scrollBehavior() {
     return {
       top: 0,
-      // meta{
-      //   title:'盧大哥的快樂作業',
-      // }
-      
     };
   },
   routes: [

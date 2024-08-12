@@ -4,26 +4,35 @@ import { RouterLink } from 'vue-router';
 export default {
   data() {
     return {
-      
+      objectData: {},
+      deliver: {},
+      deliverData: {}
     };
   },
-  mounted(){
-    this.getStorage();
+  mounted() {
+    this.objectData = this.getStorage();
+    this.deliver = this.getDeliver();
+    this.deliverData = this.getDeliverData();
+    console.log(this.objectData);
+    console.log(this.deliver);
+    console.log(this.deliverData);
   },
   methods: {
-    getStorage(){
-      const jsonStorage = sessionStorage.getItem('object');
-      if (!JSON.parse(jsonStorage)) {
-        return [];
-      }
-      return JSON.parse(jsonStorage);
+    getStorage() {
+      return JSON.parse(sessionStorage.getItem('object')) || [];
+    },
+    getDeliver() {
+      return JSON.parse(sessionStorage.getItem('deliver')) || [];
+    },
+    getDeliverData() {
+      return JSON.parse(sessionStorage.getItem('deliverData')) || [];
     }
   },
 };
 </script>
 
 <template>
-    <main>
+  <main>
     <div class="my-container">
       <div class="px-3 py-3 my-container-normal">
         <h2>購物車</h2>
@@ -98,7 +107,7 @@ export default {
               </div>
             </div>
             <div class="d-flex">
-              <div class="px-2">x1</div>
+              <div class="px-2">x{{ objectData.furniture1 }}</div>
 
               <div class="px-5">$10.50</div>
             </div>
@@ -113,7 +122,7 @@ export default {
               </div>
             </div>
             <div class="d-flex">
-              <div class="px-2">x1</div>
+              <div class="px-2">x{{ objectData.furniture2 }}</div>
               <div class="px-5">$30.50</div>
             </div>
 
@@ -130,30 +139,37 @@ export default {
             </div>
 
             <div class="d-flex">
-              <div class="px-2">x1</div>
+              <div class="px-2">x{{ objectData.furniture3 }}</div>
               <div class="px-5">$15.50</div>
             </div>
 
           </div>
-          <h4 class="my-2">寄送資料</h4>
-          <h5 class="my-3">姓名 王小明</h5>
-          <h5 class="my-3">電話 0912345678</h5>
-          <h5 class="my-3">abc123@gmail.com</h5>
-          <h5 class="my-3">地址 台中市小鎮村英雄路1號</h5>
+          <div >
+            <h4 class="my-2">寄送資料</h4>
+            <h5 class="my-3">姓名 {{ deliverData.name }}</h5>
+            <h5 class="my-3">電話 {{ deliverData.phone }}</h5>
+            <h5 class="my-3">{{ deliverData.email }}</h5>
+            <h5 class="my-3">地址 {{ deliverData.addressCity }}{{ deliverData.addressLocation }}{{
+              deliverData.addressNumber }}</h5>
+          </div>
           <hr class="mt-5">
           <div class="d-flex">
             <ul class="my-margin justify-content-end my-result">
               <li class="list-group-item d-flex">數量:
-                <div class="my-move">3</div>
+                <div class="my-move">{{ Number(objectData.furniture1) + Number(objectData.furniture2) +
+                  Number(objectData.furniture3) }}</div>
               </li>
               <li class="list-group-item d-flex">小計:
-                <div class="my-move">$56.50</div>
+                <div class="my-move">$${{
+                  (Number(objectData.furniture1Price) + Number(objectData.furniture2Price) +
+                    Number(objectData.furniture3Price)).toFixed(2) }}</div>
               </li>
               <li class="list-group-item d-flex">運費:
                 <div class="my-move">$20.90</div>
               </li>
               <li class="list-group-item d-flex">總計:
-                <div class="my-move">$77.40</div>
+                <div class="my-move">${{ (Number(objectData.furniture1Price) + Number(objectData.furniture2Price) +
+                  Number(objectData.furniture3Price) + 20.90).toFixed(2) }}</div>
               </li>
             </ul>
 
@@ -180,164 +196,164 @@ export default {
 
 <style scoped>
 .my-px {
-    padding: 0px 150px;
+  padding: 0px 150px;
 }
 
 .my-container {
-    width: 100%;
-    height: 1250px;
-    position: relative;
-    background-color: #d1d4db;
-    /* margin: auto; */
+  width: 100%;
+  height: 1250px;
+  position: relative;
+  background-color: #d1d4db;
+  /* margin: auto; */
 }
 
 @media (max-width:820px) {
-    .my-container {
+  .my-container {
 
-        height: 1400px;
+    height: 1400px;
 
-    }
+  }
 }
 
 .my-container-normal {
-    width: 80%;
-    height: 90%;
-    background-color: #f3f4f6;
-    position: absolute;
-    left: 10%;
-    top: 5%;
+  width: 80%;
+  height: 90%;
+  background-color: #f3f4f6;
+  position: absolute;
+  left: 10%;
+  top: 5%;
 
 }
 
 .my-circle {
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .my-circle-1 {
 
-    color: white;
+  color: white;
 
 }
 
 .my-circle-2 {
 
-    color: black;
+  color: black;
 
 }
 
 #my-margin {
-    left: -160px;
+  left: -160px;
 }
 
 .my-progress {
-    position: absolute;
-    left: 60px;
-    top: 25%;
-    width: 80%;
+  position: absolute;
+  left: 60px;
+  top: 25%;
+  width: 80%;
 }
 
 .my-color {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .my-big-circle {
-    width: 50px;
-    height: 50px;
-    margin-right: 5%;
+  width: 50px;
+  height: 50px;
+  margin-right: 5%;
 }
 
 .my-paragraph {
-    width: 100%;
-    height: 500px;
+  width: 100%;
+  height: 500px;
 }
 
 .my-result {
-    margin-left: -5px;
+  margin-left: -5px;
 }
 
 .my-input {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 
 
 .circle-1 {
-    background-image: url(@/assets/Img/E1169960698116.png);
-    background-size: cover;
-    background-color: white;
+  background-image: url(@/assets/Img/E1169960698116.png);
+  background-size: cover;
+  background-color: white;
 }
 
 .circle-2 {
-    background-image: url(@/assets/Img/E1682831893191.jpg);
-    background-size: cover;
+  background-image: url(@/assets/Img/E1682831893191.jpg);
+  background-size: cover;
 }
 
 .circle-3 {
-    background-image: url(@/assets/Img/Q1712905524591.jpg);
-    background-size: cover;
+  background-image: url(@/assets/Img/Q1712905524591.jpg);
+  background-size: cover;
 }
 
 .my-count {
-    width: 40px;
-    height: 30px;
-    border: 1px solid #e5e6e9;
-    border-radius: 5px;
-    text-align: center;
+  width: 40px;
+  height: 30px;
+  border: 1px solid #e5e6e9;
+  border-radius: 5px;
+  text-align: center;
 }
 
 .my-margin {
-    margin-left: auto;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    width: 20%;
+  margin-left: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width: 20%;
 }
 
 @media (max-width:1000px) {
-    .my-margin {
-        margin-left: 70%;
-    }
+  .my-margin {
+    margin-left: 70%;
+  }
 }
 
 .my-back {
-    font-size: 18px;
-    width: 150px;
-    height: 50px;
-    background-color: transparent;
-    border-radius: 8px;
-    border: 1px solid rgb(0, 122, 255);
+  font-size: 18px;
+  width: 150px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid rgb(0, 122, 255);
 }
 
 .my-button {
-    background-color: rgb(0, 122, 255);
-    border: 0;
-    color: white;
-    width: 150px;
-    height: 50px;
-    font-size: 18px;
-    border-radius: 8px;
+  background-color: rgb(0, 122, 255);
+  border: 0;
+  color: white;
+  width: 150px;
+  height: 50px;
+  font-size: 18px;
+  border-radius: 8px;
 }
 
 .my-radio {
-    margin-top: 2%;
+  margin-top: 2%;
 }
 
 .my-title {
-    text-align: center;
+  text-align: center;
 }
 
 @media (max-width:500px) {
-    .my-container-normal{
-        left: 2%;
-        top: 2%;
-        width: 96%;
-        height: 97%;
-    }
+  .my-container-normal {
+    left: 2%;
+    top: 2%;
+    width: 96%;
+    height: 97%;
+  }
 }
 </style>

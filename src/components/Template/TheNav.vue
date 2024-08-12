@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router';
 export default {
     methods: {
         
-    }
+    },
 };
 </script>
 
@@ -13,9 +13,9 @@ export default {
         <!-- <nav class="navbar navbar-expand-sm bg-dark border-bottom border-body" data-bs-theme="dark">   -->
         <div class="container-fluid animate__animated animate__bounceInRight animate__slower 3s">
             <div>
-                <a class="navbar-brand" href="#" @click="$router.push('/')">
+                <RouterLink class="navbar-brand" to="/">
                     <img src="@/assets/Img/lovepik-shop-png-image_400233775_wh1200.png" alt="Bootstrap" width="80" height="50">
-                </a>
+                </RouterLink>
 
             </div>
             <!-- 漢堡按鈕 -->
@@ -40,7 +40,7 @@ export default {
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <a class="nav-link my-car-icon" href="#" @click="$router.push('/step-1')"><i class="bi bi-cart-fill me-3"></i></a>
+                    <RouterLink class="nav-link my-car-icon" to="/step-1"><i class="bi bi-cart-fill me-3"></i></RouterLink>
 
                     <div class="dropdown">
                         <!-- <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,7 +49,7 @@ export default {
                         <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i
                                 class="bi bi-person-circle"></i></a>
                         <ul id="my-margin" class="dropdown-menu">
-                            <li><a class="dropdown-item my-dropdown-item" href="#"  @click="$router.push('/Login')">Login</a></li>
+                            <li><button class="dropdown-item my-dropdown-item"  @click="$router.push('/Login')">Login</button></li>
 
                         </ul>
                     </div>
@@ -61,7 +61,7 @@ export default {
     </nav>
 </template>
 
-<style>
+<style scoped>
 * {
     box-sizing: border-box;
 }

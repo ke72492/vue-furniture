@@ -23,7 +23,11 @@ export default {
       }
       return JSON.parse(jsonStorage);
     },
-    Next(){
+    nextStep(){
+      if(this.deliverWay.deliverChoose==='' || this.deliverWay.useWay===''){
+        alert('請選擇付款方式和運送方式');
+        return;
+      }
       this.$router.push('/step-3');
       sessionStorage.setItem('deliver', JSON.stringify(this.deliverWay));
     }
@@ -165,7 +169,7 @@ export default {
 
           <div class="d-flex justify-content-between px-5">
             <button class="my-back" id="back-btn" @click="$router.push('/step-1')">上一步</button>
-            <button class="my-button" id="next-btn" @click="Next">下一步</button>
+            <button class="my-button" id="next-btn" @click="nextStep">下一步</button>
           </div>
 
         </section>
